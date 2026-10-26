@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS results (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  difficulty TEXT NOT NULL,
+  outcome TEXT NOT NULL,
+  created_at TEXT NOT NULL
+);
