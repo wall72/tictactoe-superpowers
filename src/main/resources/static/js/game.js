@@ -5,6 +5,7 @@
   var cells = Array.prototype.slice.call(boardElement.querySelectorAll('.cell'));
   var resultBanner = document.getElementById('result-banner');
   var restartButton = document.getElementById('restart-button');
+  var changeDifficultyButton = document.getElementById('change-difficulty-button');
   var easyButton = document.getElementById('easy-button');
   var hardButton = document.getElementById('hard-button');
 
@@ -100,8 +101,18 @@
     startGame('HARD');
   });
 
+  function returnToDifficultySelect() {
+    gameOver = true;
+    gameBoard.classList.add('hidden');
+    difficultySelect.classList.remove('hidden');
+  }
+
   restartButton.addEventListener('click', function () {
     startGame(difficulty);
+  });
+
+  changeDifficultyButton.addEventListener('click', function () {
+    returnToDifficultySelect();
   });
 
   refreshStats();

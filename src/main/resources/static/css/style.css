@@ -26,7 +26,8 @@ h1 {
 }
 
 #difficulty-select button,
-#restart-button {
+#restart-button,
+#change-difficulty-button {
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
   border: none;
@@ -34,6 +35,11 @@ h1 {
   background: #3b5bdb;
   color: white;
   cursor: pointer;
+}
+
+#game-actions {
+  display: flex;
+  gap: 1rem;
 }
 
 #board {
