@@ -25,6 +25,8 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-jdbc-test'
 	testImplementation 'org.springframework.boot:spring-boot-starter-validation-test'
 	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
+	testImplementation 'org.springframework.boot:spring-boot-resttestclient'
+	testImplementation 'org.springframework.boot:spring-boot-restclient'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
