@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>틱택토</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <h1>틱택토 (vs 컴퓨터)</h1>
+
+  <section id="difficulty-select">
+    <button id="easy-button" type="button">쉬움</button>
+    <button id="hard-button" type="button">어려움</button>
+  </section>
+
+  <section id="game-board" class="hidden">
+    <div id="board">
+      <div class="cell" data-index="0"></div>
+      <div class="cell" data-index="1"></div>
+      <div class="cell" data-index="2"></div>
+      <div class="cell" data-index="3"></div>
+      <div class="cell" data-index="4"></div>
+      <div class="cell" data-index="5"></div>
+      <div class="cell" data-index="6"></div>
+      <div class="cell" data-index="7"></div>
+      <div class="cell" data-index="8"></div>
+    </div>
+    <p id="result-banner"></p>
+    <button id="restart-button" type="button">다시 시작</button>
+  </section>
+
+  <section id="stats-panel">
+    <table>
+      <caption>쉬움</caption>
+      <tbody>
+        <tr><th>승</th><td id="easy-win">0</td></tr>
+        <tr><th>패</th><td id="easy-lose">0</td></tr>
+        <tr><th>무</th><td id="easy-draw">0</td></tr>
+      </tbody>
+    </table>
+    <table>
+      <caption>어려움</caption>
+      <tbody>
+        <tr><th>승</th><td id="hard-win">0</td></tr>
+        <tr><th>패</th><td id="hard-lose">0</td></tr>
+        <tr><th>무</th><td id="hard-draw">0</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <script src="js/game-logic.js"></script>
+  <script src="js/ai.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>
