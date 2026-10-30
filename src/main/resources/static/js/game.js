@@ -8,13 +8,16 @@
   var changeDifficultyButton = document.getElementById('change-difficulty-button');
   var easyButton = document.getElementById('easy-button');
   var hardButton = document.getElementById('hard-button');
+  var pvpButton = document.getElementById('pvp-button');
+  var turnIndicator = document.getElementById('turn-indicator');
 
   var HUMAN = 'X';
   var COMPUTER = 'O';
 
-  var difficulty = null; // 'EASY' | 'HARD'
+  var difficulty = null; // 'EASY' | 'HARD' | 'PVP'
   var board = createEmptyBoard();
   var gameOver = true;
+  var currentTurn = HUMAN;
 
   function render() {
     cells.forEach(function (cell, index) {
@@ -26,10 +29,21 @@
     difficulty = selectedDifficulty;
     board = createEmptyBoard();
     gameOver = false;
+    currentTurn = HUMAN;
     resultBanner.textContent = '';
     difficultySelect.classList.add('hidden');
     gameBoard.classList.remove('hidden');
     render();
+    updateTurnIndicator();
+  }
+
+  function updateTurnIndicator() {
+    if (difficulty === 'PVP' && !gameOver) {
+      turnIndicator.classList.remove('hidden');
+      turnIndicator.textContent = currentTurn + ' 차례';
+    } else {
+      turnIndicator.classList.add('hidden');
+    }
   }
 
   function computerMove() {
@@ -41,24 +55,40 @@
 
   function finishGame(winner) {
     gameOver = true;
-    var outcome;
-    if (winner === HUMAN) {
-      outcome = 'WIN';
-      resultBanner.textContent = '승리했습니다!';
-    } else if (winner === COMPUTER) {
-      outcome = 'LOSE';
-      resultBanner.textContent = '패배했습니다.';
-    } else {
-      outcome = 'DRAW';
-      resultBanner.textContent = '무승부입니다.';
+    resultBanner.textContent = getResultMessage(difficulty, winner);
+    if (difficulty !== 'PVP') {
+      var outcome;
+      if (winner === HUMAN) {
+        outcome = 'WIN';
+      } else if (winner === COMPUTER) {
+        outcome = 'LOSE';
+      } else {
+        outcome = 'DRAW';
+      }
+      submitResult(difficulty, outcome).then(refreshStats);
     }
-    submitResult(difficulty, outcome).then(refreshStats);
+    updateTurnIndicator();
   }
 
   function handleCellClick(event) {
     if (gameOver) return;
     var index = Number(event.currentTarget.getAttribute('data-index'));
     if (board[index] !== null) return;
+
+    if (difficulty === 'PVP') {
+      board[index] = currentTurn;
+      render();
+
+      var pvpWinner = checkWinner(board);
+      if (pvpWinner !== null) {
+        finishGame(pvpWinner);
+        return;
+      }
+
+      currentTurn = getNextSymbol(currentTurn);
+      updateTurnIndicator();
+      return;
+    }
 
     board[index] = HUMAN;
     render();
@@ -101,10 +131,15 @@
     startGame('HARD');
   });
 
+  pvpButton.addEventListener('click', function () {
+    startGame('PVP');
+  });
+
   function returnToDifficultySelect() {
     gameOver = true;
     gameBoard.classList.add('hidden');
     difficultySelect.classList.remove('hidden');
+    turnIndicator.classList.add('hidden');
   }
 
   restartButton.addEventListener('click', function () {
