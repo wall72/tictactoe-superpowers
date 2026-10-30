@@ -41,6 +41,23 @@ function getRandomMove(board) {
   return moves[index];
 }
 
+function getNextSymbol(symbol) {
+  return symbol === 'X' ? 'O' : 'X';
+}
+
+function getResultMessage(mode, winner) {
+  if (mode === 'PVP') {
+    return winner === 'draw' ? '무승부입니다.' : winner + ' 승리!';
+  }
+  if (winner === 'X') {
+    return '승리했습니다!';
+  }
+  if (winner === 'O') {
+    return '패배했습니다.';
+  }
+  return '무승부입니다.';
+}
+
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { createEmptyBoard, getAvailableMoves, checkWinner, getRandomMove };
+  module.exports = { createEmptyBoard, getAvailableMoves, checkWinner, getRandomMove, getNextSymbol, getResultMessage };
 }
